@@ -1,0 +1,360 @@
+/* Styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+}
+
+/* Styles for the table */
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 50px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Styles for the table header */
+th {
+    background-color: #333;
+    color: white;
+    text-align: left;
+    padding: 8px;
+}
+
+/* Styles for the table data */
+td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+/* Styles for alternating table rows */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Styles for hover effect on table rows */
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Styles for the login dialog */
+.login-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Styles for the login dialog header */
+.login-dialog h2 {
+    margin-top: 0;
+}
+
+/* Styles for the login dialog form */
+.login-dialog form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for the login dialog form inputs */
+.login-dialog input[type="text"],
+.login-dialog input[type="password"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for the login dialog form submit button */
+.login-dialog input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Styles for the login button */
+.login-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Styles for the login button on hover */
+.login-button:hover {
+    background-color: #3e8e41;
+}
+
+/* Styles for the close button */
+.login-dialog-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Styles for the close button hover effect */
+.login-dialog-close:hover,
+.login-dialog-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles for Signup dialog */
+.signup-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Styles for the signup dialog header */
+.signup-dialog h2 {
+    margin-top: 0;
+}
+
+/* Styles for the signup dialog form */
+.signup-dialog form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for the signup dialog form inputs */
+.signup-dialog input[type="text"],
+.signup-dialog input[type="password"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for the signup dialog form submit button */
+.signup-dialog input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Styles for the signup button */
+.signup-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Styles for the signup button on hover */
+.signup-button:hover {
+    background-color: #3e8e41;
+}
+
+/* Styles for the close button */
+.signup-dialog-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Styles for the close button hover effect */
+.signup-dialog-close:hover,
+.signup-dialog-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles for the upload button */
+.upload-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Styles for the upload button on hover */
+.upload-button:hover {
+    background-color: #3e8e41;
+}
+
+/* Styles for upload dialog */
+.upload-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Styles for the upload dialog header */
+.upload-dialog h2 {
+    margin-top: 0;
+}
+
+/* Styles for the upload dialog form */
+.upload-dialog form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for the close button */
+.upload-dialog-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Styles for the close button hover effect */
+.upload-dialog-close:hover,
+.upload-dialog-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles for the upload dialog form upload button */
+.upload-dialog input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.upload-dialog input[type="password"] {
+    padding: 8px;
+    margin-top: 10px;
+    /* margin-bottom: 10px; */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+
+/* Styles for the progress bar container */
+.progress-container {
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+/* Styles for the progress bar */
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0%;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    transition: width 0.5s ease;
+}
+
+footer {
+    background-color: #3d3c3c;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+  }
+  
+.file-stats {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.file-stats p {
+    display: inline-block;
+    margin: 0 10px;
+    color:#fff
+}
+
+.file-stats p span {
+    font-weight: bold;
+}
+
+.news-panel {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    margin: 20px;
+}
+
+.news-panel h2 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.news-panel p {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.news-panel a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+.news-panel a:hover {
+    text-decoration: underline;
+}
