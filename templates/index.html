@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>SingleFS</title>
+    <link rel="stylesheet" href="../static/styles.css">
+  </head>
+  <body>
+
+    <header>
+      <div class="logo">SingleFS</div>
+
+      <button title="You must login to upload!" class="btn upload-button" onclick="showUploadDialog()" disabled>Upload</button>
+      <div class="upload-dialog" id="upload-dialog">
+        <span class="upload-dialog-close" onclick="document.getElementById('upload-dialog').style.display='none'">&times;</span>
+        <h2>Upload</h2>
+        <form>
+          <label for="file">File:</label>
+          <input type="file" id="upload-file" name="file">
+          <label for="password">Password:</label>
+          <input type="password" id="upload-password" name="password">
+          <input type="submit" value="Upload">
+        </form>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+      </div>
+
+      <button class="btn login-button" onclick="showLoginDialog()">Login</button>
+      <div class="login-dialog" id="login-dialog">
+        <span class="login-dialog-close" onclick="document.getElementById('login-dialog').style.display='none'">&times;</span>
+        <h2>Login</h2>
+        <form>
+          <label for="username">Username:</label>
+          <input type="text" id="login-username" name="username">
+          <label for="password">Password:</label>
+          <input type="password" id="login-password" name="password">
+          <input type="submit" value="Login">
+        </form>
+      </div>
+
+      <button class="btn signup-button" onclick="showSignupDialog()">Signup</button>
+      <div class="signup-dialog" id="signup-dialog">
+        <span class="signup-dialog-close" onclick="document.getElementById('signup-dialog').style.display='none'">&times;</span>
+        <h2>Signup</h2>
+        <form>
+          <label for="username">Username:</label>
+          <input type="text" id="signup-username" name="username">
+          <label for="password">Password:</label>
+          <input type="password" id="signup-password" name="password">
+          <input type="submit" value="Signup">
+        </form>
+      </div>
+    </header>
+    
+    <!-- The table below is just an example. You can remove it. -->
+    <table>
+      <thead>
+        <tr>
+          <th><a href="#">File Name</a></th>
+          <th><a href="#">File Size</a></th>
+          <th><a href="#">Date Uploaded</a></th>
+          <th><a href="#">Passworded</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="#">example1.pdf</a></td>
+          <td>1.2 MB</td>
+          <td>2023-04-13 15:27:22</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><a href="#">example2.docx</a></td>
+          <td>200 KB</td>
+          <td>2023-04-12 09:13:59</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><a href="#">example3.jpg</a></td>
+          <td>500 KB</td>
+          <td>2023-04-11 18:49:04</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td><a href="#">example4.txt</a></td>
+          <td>50 KB</td>
+          <td>2023-04-10 14:08:36</td>
+          <td>✔️</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="news-panel">
+      <h2>Site Updates</h2>
+      <p>We have recently made some changes to our website. Here are some of the updates:</p>
+      <ul>
+        <li><a href="#">Source code available on Github</a></li>
+        <li><a href="#">About SingleFS & Mission Statement</a></li>
+        <li><a href="#">How we keep your files safe</a></li>
+        <li><a href="#">How to contact us about illegal content</a></li>
+      </ul>
+    </div>
+
+    <footer>
+      <div class="file-stats">
+        <p>Files uploaded: <span id="files-uploaded">0</span></p>
+        <p>Total file size: <span id="total-file-size">0</span> KB</p>
+      </div>
+    </footer>
+
+    <script>
+      function showLoginDialog() {
+        var loginDialog = document.getElementById("login-dialog");
+        loginDialog.style.display = "block";
+      }
+
+      function showSignupDialog() {
+        var signupDialog = document.getElementById("signup-dialog");
+        signupDialog.style.display = "block";
+      }
+
+      function showUploadDialog() {
+        var uploadDialog = document.getElementById("upload-dialog");
+        uploadDialog.style.display = "block";
+      }
+
+      function uploadFile(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        var xhr = new XMLHttpRequest();
+        var progressBar = document.getElementById("progress-bar");
+        
+        xhr.upload.addEventListener("progress", function(event) {
+          if (event.lengthComputable) {
+            var percentComplete = event.loaded / event.total * 100;
+            progressBar.style.width = percentComplete + "%";
+            progressBar.innerHTML = Math.round(percentComplete) + "%";
+          }
+        }, false);
+        
+        xhr.open("POST", "/upload-file", true);
+        xhr.send(new FormData(event.target));
+      }
+
+    </script>
+
+  </body>
+</html>
