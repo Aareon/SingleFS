@@ -3,18 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <title>SingleFS</title>
-    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
 
     <header>
       <div class="logo">SingleFS</div>
 
-      <button title="You must login to upload!" class="btn upload-button" onclick="showUploadDialog()" disabled>Upload</button>
+      {% if session.login is none %}
+      <button title="You must login to upload!" class="btn upload-button" disabled>Upload</button>
+      {% endif %}
+      {% if session.login is not none %}
+      <button class="btn upload-button" onclick="showUploadDialog()">Upload</button>
       <div class="upload-dialog" id="upload-dialog">
         <span class="upload-dialog-close" onclick="document.getElementById('upload-dialog').style.display='none'">&times;</span>
         <h2>Upload</h2>
-        <form>
+        <form method="POST" action="/upload">
           <label for="file">File:</label>
           <input type="file" id="upload-file" name="file">
           <label for="password">Password:</label>
@@ -25,14 +30,16 @@
           <div class="progress-bar" id="progress-bar"></div>
         </div>
       </div>
+      {% endif %}
 
+      {% if session.login is none %}
       <button class="btn login-button" onclick="showLoginDialog()">Login</button>
       <div class="login-dialog" id="login-dialog">
         <span class="login-dialog-close" onclick="document.getElementById('login-dialog').style.display='none'">&times;</span>
         <h2>Login</h2>
-        <form>
-          <label for="username">Username:</label>
-          <input type="text" id="login-username" name="username">
+        <form method="post" action="/login">
+          <label for="email">Email:</label>
+          <input type="email" id="login-email" name="email">
           <label for="password">Password:</label>
           <input type="password" id="login-password" name="password">
           <input type="submit" value="Login">
@@ -43,7 +50,9 @@
       <div class="signup-dialog" id="signup-dialog">
         <span class="signup-dialog-close" onclick="document.getElementById('signup-dialog').style.display='none'">&times;</span>
         <h2>Signup</h2>
-        <form>
+        <form method="POST" action="/register">
+          <label for="email">Email:</label>
+          <input type="email" id="signup-email" name="email">
           <label for="username">Username:</label>
           <input type="text" id="signup-username" name="username">
           <label for="password">Password:</label>
@@ -51,6 +60,11 @@
           <input type="submit" value="Signup">
         </form>
       </div>
+      {% endif %}
+
+      {% if session.login is not none %}
+      <button class="btn logout-button" onclick="location.href='/logout'">Logout</button>
+      {% endif %}
     </header>
     
     <!-- The table below is just an example. You can remove it. -->
