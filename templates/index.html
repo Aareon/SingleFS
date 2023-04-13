@@ -63,6 +63,7 @@
       {% endif %}
 
       {% if session.login is not none %}
+      <p>Logged in as {{ session.username }}</p>
       <button class="btn logout-button" onclick="location.href='/logout'">Logout</button>
       {% endif %}
     </header>
@@ -109,7 +110,7 @@
       <h2>Site Updates</h2>
       <p>We have recently made some changes to our website. Here are some of the updates:</p>
       <ul>
-        <li><a href="#">Source code available on Github</a></li>
+        <li><a href="https://github.com/Aareon/SingleFS">Source code available on Github</a></li>
         <li><a href="#">About SingleFS & Mission Statement</a></li>
         <li><a href="#">How we keep your files safe</a></li>
         <li><a href="#">How to contact us about illegal content</a></li>

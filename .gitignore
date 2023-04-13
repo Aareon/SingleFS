@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# access token
+access_token.txt
+
+# database
+database.db

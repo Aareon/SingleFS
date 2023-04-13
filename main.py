@@ -25,6 +25,11 @@ def login():
         user = DB.session.query(User).filter_by(email=email).first()
         if bcrypt.verify(password, user.password):
             session["login"]= True
+            session["username"] = user.username
+        else:
+            return "Incorrect password"
+    else:
+        return "User does not exist"
     return redirect(url_for("index"))
 
 
