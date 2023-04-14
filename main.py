@@ -8,6 +8,8 @@ import random
 
 app = Flask(__name__)
 DB = Database()
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SECRET_KEY"] = os.urandom(24)
 
 
 @app.route('/')
@@ -26,11 +28,11 @@ def login():
         if bcrypt.verify(password, user.password):
             session["login"]= True
             session["username"] = user.username
+            return redirect(url_for("index"))
         else:
             return "Incorrect password"
     else:
         return "User does not exist"
-    return redirect(url_for("index"))
 
 
 @app.route('/register', methods=["POST"])
@@ -60,5 +62,5 @@ if __name__ == "__main__":
     if not os.path.exists("access_token.txt"):
         with open("access_token.txt", "w") as f:
             f.write(gen_access_token())
-    app.config["SECRET_KEY"] = os.urandom(24)
+    
     app.run(debug=True)
