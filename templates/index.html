@@ -20,7 +20,7 @@
       <div class="upload-dialog" id="upload-dialog">
         <span class="upload-dialog-close" onclick="document.getElementById('upload-dialog').style.display='none'">&times;</span>
         <h2>Upload</h2>
-        <form method="POST" action="/upload" id="upload-form">
+        <form method="POST" action="/upload" id="upload-form" enctype="multipart/form-data">
           <label for="file">File:</label>
           <input type="file" id="upload-file" name="file">
           <label for="password">Password:</label>
@@ -149,32 +149,37 @@
         signupDialog.style.display = "block";
       }
 
+      function showUploadDialog() {
+        var uploadDialog = document.getElementById("upload-dialog");
+        uploadDialog.style.display = "block";
+      }
+
       var form = document.querySelector('upload-form');
       var progress = document.querySelector('.progress-bar');
 
       form.addEventListener('submit', function(event) {
-        event.preventDefault(); // prevent the form from submitting normally
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/upload', true);
+          event.preventDefault(); // prevent the form from submitting normally
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/upload', true);
 
-        xhr.upload.onprogress = function(event) {
-            if (event.lengthComputable) {
-                var percent = (event.loaded / event.total) * 100;
-                progress.style.width = percent + '%';
-                progress.setAttribute('aria-valuenow', percent);
-            }
-        };
+          xhr.upload.onprogress = function(event) {
+              if (event.lengthComputable) {
+                  var percent = (event.loaded / event.total) * 100;
+                  progress.style.width = percent + '%';
+                  progress.setAttribute('aria-valuenow', percent);
+              }
+          };
 
-        xhr.onload = function() {
-            if (xhr.status === 204) {
-                progress.classList.add('bg-success');
-            } else {
-                progress.classList.add('bg-danger');
-            }
-        };
+          xhr.onload = function() {
+              if (xhr.status === 204) {
+                  progress.classList.add('bg-success');
+              } else {
+                  progress.classList.add('bg-danger');
+              }
+          };
 
-        xhr.send(new FormData(form));
-    });
+          xhr.send(new FormData(form));
+      });
 
     </script>
 
