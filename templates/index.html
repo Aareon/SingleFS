@@ -5,6 +5,7 @@
     <title>SingleFS</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
 
@@ -37,12 +38,12 @@
       <div class="login-dialog" id="login-dialog">
         <span class="login-dialog-close" onclick="document.getElementById('login-dialog').style.display='none'">&times;</span>
         <h2>Login</h2>
-        <form method="post" action="/login">
+        <form method="POST" action="/login" id="login-form">
           <label for="email">Email:</label>
           <input type="email" id="login-email" name="email">
           <label for="password">Password:</label>
           <input type="password" id="login-password" name="password">
-          <input type="submit" value="Login">
+          <input type="submit" value="Login" id="login-submit-button">
         </form>
       </div>
 
@@ -57,7 +58,9 @@
           <input type="text" id="signup-username" name="username">
           <label for="password">Password:</label>
           <input type="password" id="signup-password" name="password">
-          <input type="submit" value="Signup">
+          <label for="password-confirmation">Confirm Password:</label>
+          <input type="password" id="signup-password-confirmation" name="password-confirmation">
+          <input type="submit" value="Signup" id="signup-submit-button">
         </form>
       </div>
       {% endif %}
@@ -67,44 +70,6 @@
       <button class="btn logout-button" onclick="location.href='/logout'">Logout</button>
       {% endif %}
     </header>
-    
-    <!-- The table below is just an example. You can remove it. -->
-    <table>
-      <thead>
-        <tr>
-          <th><a href="#">File Name</a></th>
-          <th><a href="#">File Size</a></th>
-          <th><a href="#">Date Uploaded</a></th>
-          <th><a href="#">Passworded</a></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><a href="#">example1.pdf</a></td>
-          <td>1.2 MB</td>
-          <td>2023-04-13 15:27:22</td>
-          <td>❌</td>
-        </tr>
-        <tr>
-          <td><a href="#">example2.docx</a></td>
-          <td>200 KB</td>
-          <td>2023-04-12 09:13:59</td>
-          <td>❌</td>
-        </tr>
-        <tr>
-          <td><a href="#">example3.jpg</a></td>
-          <td>500 KB</td>
-          <td>2023-04-11 18:49:04</td>
-          <td>❌</td>
-        </tr>
-        <tr>
-          <td><a href="#">example4.txt</a></td>
-          <td>50 KB</td>
-          <td>2023-04-10 14:08:36</td>
-          <td>✔️</td>
-        </tr>
-      </tbody>
-    </table>
 
     <div class="news-panel">
       <h2>Site Updates</h2>
@@ -125,6 +90,55 @@
     </footer>
 
     <script>
+      $(document).ready(function() {
+        $("#signup-submit-button").click(function() {
+          event.preventDefault();
+          
+          //get inputs
+          var signupEmail = $("#signup-email").val();
+          var signupUsername = $("#signup-username").val();
+          var signupPassword = $("#signup-password").val();
+          var signupPasswordConfirmation = $("#signup-password-confirmation").val();
+
+          if(signupEmail != "" && signupUsername != "" && signupPassword != "" && signupPasswordConfirmation != "" && signupPassword == signupPasswordConfirmation)
+          {
+            $.post("/register", {email: signupEmail, usesrname: signupUsername, password: signupPassword}, function( data ) {
+              alert( data );
+            });
+          }
+          else
+          {
+            alert('One or more required fields are empty, or your passwords do not match');
+          }
+        });
+
+        $("#login-submit-button").click(function() {
+          event.preventDefault();
+          
+          //get inputs
+          var loginEmail = $("#login-email").val();
+          var loginPassword = $("#login-password").val();
+
+          if(loginEmail != "" && loginPassword != "")
+          {
+            $.post("/login", {email: loginEmail, password: loginPassword}, function( data ) {
+                if(data == "Incorrect password" || data == "User does not exist")
+                {
+                  alert( data );
+                }
+                else
+                {
+                  $("#login-form").submit();
+                }
+            });
+          }
+          else
+          {
+            alert('One or more required fields are empty');
+          }
+        });
+      });
+
       function showLoginDialog() {
         var loginDialog = document.getElementById("login-dialog");
         loginDialog.style.display = "block";
