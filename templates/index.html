@@ -139,6 +139,11 @@
         });
       });
 
+      $("#upload-submit-button").click(function() {
+          event.preventDefault();
+          alert("this is a test")
+      });
+
       function showLoginDialog() {
         var loginDialog = document.getElementById("login-dialog");
         loginDialog.style.display = "block";
@@ -154,31 +159,34 @@
         uploadDialog.style.display = "block";
       }
 
-      var form = document.querySelector('upload-form');
-      var progress = document.querySelector('.progress-bar');
+      $(document).ready(function() {
+          var form = document.getElementById('upload-form');
+          var progress = document.querySelector('.progress-bar');
 
-      form.addEventListener('submit', function(event) {
-          event.preventDefault(); // prevent the form from submitting normally
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '/upload', true);
+          form.addEventListener('submit', function (event) {
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', '/upload', true);
 
-          xhr.upload.onprogress = function(event) {
-              if (event.lengthComputable) {
-                  var percent = (event.loaded / event.total) * 100;
-                  progress.style.width = percent + '%';
-                  progress.setAttribute('aria-valuenow', percent);
-              }
-          };
+              xhr.upload.onprogress = function (event) {
+                  if (event.lengthComputable) {
+                      var percent = (event.loaded / event.total) * 100;
+                      progress.style.width = percent + '%';
+                      progress.setAttribute('aria-valuenow', percent);
+                  }
+              };
 
-          xhr.onload = function() {
-              if (xhr.status === 204) {
-                  progress.classList.add('bg-success');
-              } else {
-                  progress.classList.add('bg-danger');
-              }
-          };
+              xhr.onload = function () {
+                  if (xhr.status === 204) {
+                      progress.classList.add('bg-success');
+                      alert("Upload successful!");
+                  } else {
+                      progress.classList.add('bg-danger');
+                      alert("Something went wrong :(");
+                  }
+              };
 
-          xhr.send(new FormData(form));
+              xhr.send(new FormData(form));
+          });
       });
 
     </script>
