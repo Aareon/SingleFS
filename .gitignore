@@ -133,3 +133,6 @@ access_token.txt
 
 # database
 database.db
+
+# upload folder
+uploads/
