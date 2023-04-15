@@ -102,7 +102,7 @@
 
           if(signupEmail != "" && signupUsername != "" && signupPassword != "" && signupPasswordConfirmation != "" && signupPassword == signupPasswordConfirmation)
           {
-            $.post("/register", {email: signupEmail, usesrname: signupUsername, password: signupPassword}, function( data ) {
+            $.post("/register", {email: signupEmail, username: signupUsername, password: signupPassword}, function( data ) {
               alert( data );
             });
           }

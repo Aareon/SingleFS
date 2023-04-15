@@ -12,9 +12,14 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     email = Column(String(length=255), unique=True, nullable=True)
-    username = Column(String(length=32), unique=True, nullable=True)
+    username = Column(String(length=32), unique=True, nullable=False)
     password = Column(String(length=255), unique=False, nullable=False)
     time_created = Column(DateTime(timezone=True), server_default=func.now())
+    allowed_storage = Column(Integer, unique=False, nullable=False, server_default="1")
+    used_storage = Column(Integer, unique=False, nullable=True)
+
+    def __repr__(self):
+        return f"id:{self.id}, email: {self.email}, username: {self.username}"
 
 
 class File(Base):
@@ -26,6 +31,8 @@ class File(Base):
     time_created = Column(DateTime(timezone=True), server_default=func.now())
     pass_hash = Column(String(length=255), unique=False, nullable=False)
     file_size = Column(Integer, unique=False, nullable=False)
+    uploader = Column(Integer, ForeignKey("users.id"), nullable=False)
+    public = Column(Boolean, unique=False, nullable=False, server_default="0")
 
 
 class Database:
