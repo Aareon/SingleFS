@@ -45,6 +45,7 @@
           <input type="password" id="login-password" name="password">
           <input type="submit" value="Login" id="login-submit-button">
         </form>
+        <span id="login-dialog-user-warning"></span>
       </div>
 
       <button class="btn signup-button" onclick="showSignupDialog()">Signup</button>
@@ -62,6 +63,7 @@
           <input type="password" id="signup-password-confirmation" name="password-confirmation">
           <input type="submit" value="Signup" id="signup-submit-button">
         </form>
+        <span id="signup-dialog-user-warning"></span>
       </div>
       {% endif %}
 
@@ -100,15 +102,29 @@
           var signupPassword = $("#signup-password").val();
           var signupPasswordConfirmation = $("#signup-password-confirmation").val();
 
-          if(signupEmail != "" && signupUsername != "" && signupPassword != "" && signupPasswordConfirmation != "" && signupPassword == signupPasswordConfirmation)
+          if(signupEmail != "" && signupUsername != "" && signupPassword != "" && signupPasswordConfirmation != "")
           {
-            $.post("/register", {email: signupEmail, username: signupUsername, password: signupPassword}, function( data ) {
-              alert( data );
-            });
+            if(signupPassword == signupPasswordConfirmation)
+            {
+              $.post("/register", {email: signupEmail, username: signupUsername, password: signupPassword}, function(data) {
+                $('#signup-dialog-user-warning').text(data);
+                $('#signup-dialog-user-warning').css('color', 'green');
+                $('#signup-dialog-user-warning').show();
+              });
+            }
+            else
+            {
+              $('#signup-dialog-user-warning').text('Your passwords do not match');
+              $('#signup-dialog-user-warning').css('color', 'red');
+              $('#signup-dialog-user-warning').show();
+            }
+
           }
           else
           {
-            alert('One or more required fields are empty, or your passwords do not match');
+            $('#signup-dialog-user-warning').text('One or more required fields are empty');
+            $('#signup-dialog-user-warning').css('color', 'red');
+            $('#signup-dialog-user-warning').show();
           }
         });
 
@@ -121,10 +137,12 @@
 
           if(loginEmail != "" && loginPassword != "")
           {
-            $.post("/login", {email: loginEmail, password: loginPassword}, function( data ) {
+            $.post("/login", {email: loginEmail, password: loginPassword}, function(data) {
                 if(data == "Incorrect password" || data == "User does not exist")
                 {
-                  alert( data );
+                  $('#login-dialog-user-warning').text(data);
+                  $('#login-dialog-user-warning').css("color", "red");
+                  $('#login-dialog-user-warning').show();
                 }
                 else
                 {
@@ -134,7 +152,9 @@
           }
           else
           {
-            alert('One or more required fields are empty');
+            $('#login-dialog-user-warning').text('One or more required fields are empty');
+            $('#login-dialog-user-warning').css("color", "red");
+            $('#login-dialog-user-warning').show();
           }
         });
       });
@@ -145,11 +165,13 @@
       });
 
       function showLoginDialog() {
+        $('#login-dialog-user-warning').hide();
         var loginDialog = document.getElementById("login-dialog");
         loginDialog.style.display = "block";
       }
 
       function showSignupDialog() {
+        $("#signup-dialog-user-warning").hide();
         var signupDialog = document.getElementById("signup-dialog");
         signupDialog.style.display = "block";
       }
